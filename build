@@ -37,6 +37,7 @@ git checkout jb
 cd ../av
 git checkout jb
 cd $HOME
+
 # Make the builds.
 . build/envsetup.sh
 lunch aokp_primoc-userdebug

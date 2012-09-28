@@ -1,8 +1,0 @@
-#!/bin/bash
-#
-HOME=~/android/aokpjb
-
-cd $HOME
-cd device/htc/primoc
-touch cm.mk
-while read -r; do if [[ $REPLY = "ro.goo.version="* ]] ; then old_version=${REPLY#ro.goo.version=}; new_version=$(( old_version + 1 )); printf 'ro.goo.version=%s\n' "$new_version"; else printf '%s\n' "$REPLY"; fi; done
