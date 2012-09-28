@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# This script is to make my life easier when building CM9 kangs. It  #
+# will build for all the Galaxy S devices, but can be modified for   #
+# others. It will read cherrypicks from the included cherry file.    #
+
+# Starting Timer for build
+START=$(date +%s)
+DEVICE="$1"
+ADDITIONAL="$2"
+HOME=~/android/aokpjb
+
+# Clean out old builds
+cd $HOME
+
+# Sync Source, not too fast though, I don't want to have to restart   #
+# it if it hangs.                                                     #
+repo sync -j10
+
+# Checkout the vendor/aokp branch because of my local changes
+cd $HOME/vendor/aokp
+git checkout jb
+cd $HOME
+cd frameworks/base
+git checkout jb
+cd $HOME
+cd packages/apps/ROMControl
+git checkout jb
+cd ../Contacts
+git checkout jb
+cd $HOME
+cd hardware/qcom/display
+git checkout jb
+cd $HOME
+cd frameworks/native
+git checkout jb
+cd ../av
+git checkout jb
+cd $HOME
+# Make the builds.
+. build/envsetup.sh
+lunch aokp_primoc-userdebug
+make clobber && make clean
+make -j7 bacon | tee aokp_primoc.log
+lunch aokp_primou-userdebug
+make -j7 bacon | tee aokp_primou.log
+
+# Set variables to grab zip names
+PRIMOC=$(tail aokp_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+PRIMOU=$(tail aokp_primou.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+
+REALDATE=`date +%F`
+
+#Upload to goo
+scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
+scp -P 2222 $PRIMOU gannon5197@upload.goo.im:~/public_html/aokp/primou/nightlies/
+
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n" $E_SEC
+
+#All done!
+echo "finished with the build! Don't forget to tell XDA!"

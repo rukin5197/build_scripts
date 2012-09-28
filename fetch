@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+
+HOME=~/android/aokpjb
+
+
+echo "Merging with my local tree. Let's hope this doesn't cause errors"
+
+cd $HOME
+cd vendor/aokp
+git checkout jb
+git fetch upstream
+git merge upstream/jb
+
+cd $HOME
+cd device/htc/primoc
+git add .
+git commit -m "Automatic Commit"
+git push -f origin
+
+cd $HOME
+cd vendor/htc/primoc
+git add .
+git commit -m "Automatic Commit"
+git push -f origin
+
+cd $HOME
+cd frameworks/base
+git checkout jb
+git fetch upstream
+git merge upstream/jb
+git push -f origin
+
+cd $HOME
+cd packages/apps/ROMControl
+git checkout jb
+git fetch upstream
+git merge upstream/jb
+git push -f origin
+cd ../Contacts
+git checkout jb
+git fetch upstream
+git merge upstream/jb
+cd $HOME
+cd hardware/qcom/display
+git checkout jb
+git fetch origin
+git merge origin/jb
+cd $HOME
+cd frameworks/native
+git checkout jb
+git fetch origin
+git merge origin/jb
+cd ../av
+git checkout jb
+git fetch origin
+git merge origin/jb
+cd $HOME

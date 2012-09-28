@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+HOME=~/android/aokpjb
+
+echo "This is my cherry-picks. Run after repo sync if needed"
+# For Hardware Keys
+cd $HOME
+cd packages/apps/ROMControl
+git fetch http://gerrit.sudoservers.com/AOKP/packages_apps_ROMControl refs/changes/46/3146/9 && git cherry-pick FETCH_HEAD
+cd $HOME
+cd frameworks/base
+git fetch http://gerrit.sudoservers.com/AOKP/frameworks_base refs/changes/47/3147/6 && git cherry-pick FETCH_HEAD
+cd $HOME
+
+
