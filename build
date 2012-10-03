@@ -12,30 +12,15 @@ HOME=~/android/aokpjb
 
 # Clean out old builds
 cd $HOME
-
 # Sync Source, not too fast though, I don't want to have to restart   #
 # it if it hangs.                                                     #
 repo sync -j10
 
-# Checkout the vendor/aokp branch because of my local changes
-cd $HOME/vendor/aokp
-git checkout jb
-cd $HOME
-cd frameworks/base
-git checkout jb
-cd $HOME
-cd packages/apps/ROMControl
-git checkout jb
-cd ../Contacts
-git checkout jb
-cd $HOME
-cd hardware/qcom/display
-git checkout jb
-cd $HOME
-cd frameworks/native
-git checkout jb
-cd ../av
-git checkout jb
+# Grab my cherries
+cd vendor/htc
+git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/1 && git cherry-pick FETCH_HEAD
+cd ../aokp
+git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/1 && git cherry-pick FETCH_HEAD
 cd $HOME
 
 # Make the builds.
