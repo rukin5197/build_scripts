@@ -5,7 +5,7 @@
 # others.                                                             #
 # If you want to use this build script you will need to change quite  #
 # A few things, including the DIR, sync -jx, device name, upload url, #
-# etc. Have fun building!				              #
+# etc. Have fun building!                                             #
 
 
 # Starting Timer for build
