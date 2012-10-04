@@ -1,8 +1,12 @@
 #!/bin/bash
 
-# This script is to make my life easier when building CM9 kangs. It  #
-# will build for all the Galaxy S devices, but can be modified for   #
-# others. It will read cherrypicks from the included cherry file.    #
+# This script is to make my life easier when building AOKP kangs. It  #
+# will build for all the One V devices, but can be modified for       #
+# others.                                                             #
+# If you want to use this build script you will need to change quite  #
+# A few things, including the DIR, sync -jx, device name, upload url, #
+# etc. Have fun building!				              #
+
 
 # Starting Timer for build
 START=$(date +%s)
