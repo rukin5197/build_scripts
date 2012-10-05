@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+
+HOME=~/android/triumph
+
+echo "This is my cherry-picks. Run after repo sync if needed"
+# For wifi
+cd $HOME
+cd hardware/libhardware_legacy
+git fetch https://github.com/MTDEV-CM10/android_hardware_libhardware_legacy refs/heads/jellybean && git cherry-pick 187dc9689155e8f0dd23d7be54847b0812966b5c
+cd $HOME
+# Fix headset
+cd frameworks/base
+git fetch https://github.com/MTDEV-CM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 3113c71c7dcc53666a88b62bb316b95d65e86697
+cd $HOME
+# Fix RIL
+cd frameworks/base
+git fetch https://github.com/MTDEV-CM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 7d5d51acbe17b1ef7febc61c36eef5d84e8005d2
+# RIL backport 2
+git fetch https://github.com/MTDEV-CM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 3436f16881c6f8c8dda7c769719ce770747a10de
+cd $HOME

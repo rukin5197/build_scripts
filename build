@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# This script is to make my life easier when building AOKP kangs. It  #
+# will build for all the Triumph devices, but can be modified for     #
+# others.                                                             #
+# If you want to use this build script you will need to change quite  #
+# A few things, including the DIR, sync -jx, device name, upload url, #
+# etc. Have fun building!                                             #
+
+
+# Starting Timer for build
+START=$(date +%s)
+DEVICE="$1"
+ADDITIONAL="$2"
+HOME=~/android/triumph
+
+# Clean out old builds
+cd $HOME
+# Sync Source, not too fast though, I don't want to have to restart   #
+# it if it hangs.                                                     #
+repo sync -j10
+
+# Cherry-picks
+# For wifi
+cd $HOME
+cd hardware/libhardware_legacy
+git fetch https://github.com/MTDEV-CM10/android_hardware_libhardware_legacy refs/head/jellybean && git cherry-pick 187dc9689155e8f0dd23d7be54847b0812966b5c
+cd $HOME
+# Fix headset
+cd frameworks/base
+git fetch https://github.com/MTDEV-CM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 3113c71c7dcc53666a88b62bb316b95d65e86697
+cd $HOME
+# Fix RIL
+cd frameworks/base
+git fetch https://github.com/MTDEV-CM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 7d5d51acbe17b1ef7febc61c36eef5d84e8005d2
+# RIL backport 2
+git fetch https://github.com/MTDEV-CM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 3436f16881c6f8c8dda7c769719ce770747a10de
+cd $HOME
+
+# Make the builds.
+. build/envsetup.sh
+lunch cm_triumph-userdebug
+make clobber && make clean
+make -j7 bacon | tee cm_triumph.log
+
+# Set variables to grab zip names
+TRIUMPH=$(tail cm_triumph.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+
+REALDATE=`date +%F`
+
+#Upload to goo
+scp -P 2222 $TRIUMPH gannon5197@upload.goo.im:~/public_html/triumph/cm10/nightlies/
+
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n" $E_SEC
+
+#All done!
+echo "finished with the build! Don't forget to tell XDA!"

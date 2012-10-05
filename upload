@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+
+HOME=~/android/triumph
+
+cd $HOME
+
+# Set variables to grab zip names
+TRIUMPH=$(tail cm_triumph.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+
+REALDATE=`date +%F`
+
+#Upload to goo
+scp -P 2222 $TRIUMPH gannon5197@upload.goo.im:~/public_html/triumph/cm10/nightlies/
