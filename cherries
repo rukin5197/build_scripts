@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+
+HOME=~/android/cna
+
+echo "This is my cherry-picks. Run after repo sync if needed"
+# For Hardware Keys
+cd $HOME
+cd vendor/cna
+git fetch https://github.com/rukin5197/proprietary_vendor_cna refs/heads/jellybean && git cherry-pick 9f96e5b6a08686248d964db79ea0d54117cb127d
+cd $HOME
+
+

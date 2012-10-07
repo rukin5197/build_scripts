@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# This script is to make my life easier when building AOKP kangs. It  #
+# will build for all the One V devices, but can be modified for       #
+# others.                                                             #
+# If you want to use this build script you will need to change quite  #
+# A few things, including the DIR, sync -jx, device name, upload url, #
+# etc. Have fun building!                                             #
+
+
+# Starting Timer for build
+START=$(date +%s)
+DEVICE="$1"
+ADDITIONAL="$2"
+HOME=~/android/cna
+
+# Clean out old builds
+cd $HOME
+# Sync Source, not too fast though, I don't want to have to restart   #
+# it if it hangs.                                                     #
+repo sync -j10
+rm -rf cna_primoc.log
+
+# Grab my cherries
+cd vendor/cna
+git fetch https://github.com/rukin5197/proprietary_vendor_cna refs/heads/jellybean && git cherry-pick 9f96e5b6a08686248d964db79ea0d54117cb127d
+cd $HOME
+
+# Make the builds.
+. build/envsetup.sh
+lunch cna_primoc-userdebug
+make clobber && make clean
+make -j7 bacon | tee cna_primoc.log
+
+# Set variables to grab zip names
+PRIMOC=$(tail cna_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+
+REALDATE=`date +%F`
+
+#Upload to goo
+scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/cna/primoc/nightlies/
+
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n" $E_SEC
+
+#All done!
+echo "finished with the build! Don't forget to tell XDA!"
