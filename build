@@ -22,9 +22,9 @@ repo sync -j10
 
 # Grab my cherries
 cd vendor/htc
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/1 && git cherry-pick FETCH_HEAD
+git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/4 && git cherry-pick FETCH_HEAD
 cd ../aokp
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/1 && git cherry-pick FETCH_HEAD
+git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/2 && git cherry-pick FETCH_HEAD
 cd $HOME
 
 # Make the builds.
