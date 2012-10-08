@@ -26,11 +26,19 @@ cd vendor/cna
 git fetch https://github.com/rukin5197/proprietary_vendor_cna refs/heads/jellybean && git cherry-pick 9f96e5b6a08686248d964db79ea0d54117cb127d
 cd $HOME
 
+# For Facebook Contacts Sync
+cd packages/providers/ContactsProvider
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_packages_providers_ContactsProvider refs/changes/56/21456/1 && git cherry-pick FETCH_HEAD
+cd $HOME
+cd frameworks/base
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_frameworks_base refs/changes/55/21455/1 && git cherry-pick FETCH_HEAD
+cd $HOME
+
 # Make the builds.
 . build/envsetup.sh
 lunch cna_primoc-userdebug
 make clobber && make clean
-make -j7 bacon | tee cna_primoc.log
+mka -j7 squish CNA_RELEASE=true | tee cna_primoc.log
 
 # Set variables to grab zip names
 PRIMOC=$(tail cna_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
@@ -50,3 +58,4 @@ printf "%d sec(s)\n" $E_SEC
 
 #All done!
 echo "finished with the build! Don't forget to tell XDA!"
+exit

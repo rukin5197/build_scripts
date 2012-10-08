@@ -1,16 +1,15 @@
 #!/bin/bash
 #
 
-HOME=~/android/aokpjb
+HOME=~/android/cna
 
 cd $HOME
 
 # Set variables to grab zip names
-PRIMOC=$(tail aokp_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
-PRIMOU=$(tail aokp_primou.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+PRIMOC=$(tail cna_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 
 REALDATE=`date +%F`
 
 #Upload to goo
-scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
-scp -P 2222 $PRIMOU gannon5197@upload.goo.im:~/public_html/aokp/primou/nightlies/
+scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/cna/primoc/nightlies/
+exit
