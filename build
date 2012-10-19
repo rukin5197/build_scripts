@@ -24,9 +24,23 @@ repo sync -j10
 cd vendor/htc
 git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/4 && git cherry-pick FETCH_HEAD
 cd ../aokp
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/2 && git cherry-pick FETCH_HEAD
+git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/3 && git cherry-pick FETCH_HEAD
 cd $HOME
 
+# Grab the extra features. Make sure to keep these up to date!
+# Group MMS Threading
+# Patch Set 3
+cd packages/apps/Mms
+git fetch http://gerrit.sudoservers.com/AOKP/packages_apps_Mms refs/changes/14/3914/3 && git cherry-pick FETCH_HEAD
+cd $HOME
+# Patch Set 1
+cd packages/providers/TelephonyProvider
+git fetch http://gerrit.sudoservers.com/AOKP/packages_providers_TelephonyProvider refs/changes/60/4060/1 && git cherry-pick FETCH_HEAD
+cd $HOME
+# Patch Set 1
+cd frameworks/base
+git fetch http://gerrit.sudoservers.com/AOKP/frameworks_base refs/changes/13/3913/1 && git cherry-pick FETCH_HEAD
+cd $HOME
 # Make the builds.
 . build/envsetup.sh
 lunch aokp_primoc-userdebug
