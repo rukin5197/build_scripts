@@ -12,7 +12,7 @@
 START=$(date +%s)
 DEVICE="$1"
 ADDITIONAL="$2"
-HOME=~/android/aokpjb
+HOME=~/android/pa
 
 # Clean out old builds
 cd $HOME
@@ -21,29 +21,23 @@ cd $HOME
 repo sync -j10
 
 # Grab my cherries
-cd vendor/htc
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/4 && git cherry-pick FETCH_HEAD
-cd ../aokp
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/2 && git cherry-pick FETCH_HEAD
+cd vendor/pa
+git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick b1ec1e72051849da56b1b1fd2558acee29343675
 cd $HOME
 
 # Make the builds.
 . build/envsetup.sh
-lunch aokp_primoc-userdebug
+lunch pa_primoc-userdebug
 make clobber && make clean
-make -j7 bacon | tee aokp_primoc.log
-lunch aokp_primou-userdebug
-make -j7 bacon | tee aokp_primou.log
+make -j7 bacon | tee pa_primoc.log
 
 # Set variables to grab zip names
-PRIMOC=$(tail aokp_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
-PRIMOU=$(tail aokp_primou.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+PRIMOC=$(tail pa_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 
 REALDATE=`date +%F`
 
 #Upload to goo
-scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
-scp -P 2222 $PRIMOU gannon5197@upload.goo.im:~/public_html/aokp/primou/nightlies/
+scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/pa/primoc/nightlies/
 
 END=$(date +%s)
 ELAPSED=$((END - START))
