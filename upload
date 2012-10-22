@@ -11,4 +11,4 @@ PRIMOC=$(tail pa_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 REALDATE=`date +%F`
 
 #Upload to goo
-scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/pa/primoc/nightlies/
+scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/paranoid/primoc/nightlies/

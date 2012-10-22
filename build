@@ -22,7 +22,7 @@ repo sync -j10
 
 # Grab my cherries
 cd vendor/pa
-git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick b1ec1e72051849da56b1b1fd2558acee29343675
+git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick 4f50a6deda034befaca6a3608ef89cb15a002f64
 cd $HOME
 
 # Make the builds.
@@ -37,7 +37,7 @@ PRIMOC=$(tail pa_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 REALDATE=`date +%F`
 
 #Upload to goo
-scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/pa/primoc/nightlies/
+scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/paranoid/primoc/nightlies/
 
 END=$(date +%s)
 ELAPSED=$((END - START))
