@@ -21,43 +21,47 @@ cd $HOME
 repo sync -j10
 
 # Grab my cherries
+# Adding Primo
 cd vendor/htc
 git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/4 && git cherry-pick FETCH_HEAD
 cd ../aokp
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/3 && git cherry-pick FETCH_HEAD
+git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/4 && git cherry-pick FETCH_HEAD
+# Adding Triumph
+git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-pick c4d67956a6eb7b56536e228b6d26ecadaff0cf14
 cd $HOME
 
 # Grab the extra features. Make sure to keep these up to date!
-# Group MMS Threading
-# Patch Set 3
-cd packages/apps/Mms
-git fetch http://gerrit.sudoservers.com/AOKP/packages_apps_Mms refs/changes/14/3914/3 && git cherry-pick FETCH_HEAD
+# Legacy Graphics
+cd frameworks/native
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_frameworks_native refs/changes/16/25116/1 && git cherry-pick FETCH_HEAD
 cd $HOME
-# Patch Set 1
-cd packages/providers/TelephonyProvider
-git fetch http://gerrit.sudoservers.com/AOKP/packages_providers_TelephonyProvider refs/changes/60/4060/1 && git cherry-pick FETCH_HEAD
+cd hardware/qcom/display
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_hardware_qcom_display refs/changes/17/25117/1 && git cherry-pick FETCH_HEAD
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_hardware_qcom_display refs/changes/18/25118/1 && git cherry-pick FETCH_HEAD
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_hardware_qcom_display refs/changes/19/25119/1 && git cherry-pick FETCH_HEAD
 cd $HOME
-# Patch Set 1
-cd frameworks/base
-git fetch http://gerrit.sudoservers.com/AOKP/frameworks_base refs/changes/13/3913/1 && git cherry-pick FETCH_HEAD
-cd $HOME
+
 # Make the builds.
 . build/envsetup.sh
 lunch aokp_primoc-userdebug
 make clobber && make clean
-make -j7 bacon | tee aokp_primoc.log
+make -j7 bacon 2>&1 | tee aokp_primoc.log
 lunch aokp_primou-userdebug
-make -j7 bacon | tee aokp_primou.log
+make -j7 bacon 2>&1 | tee aokp_primou.log
+lunch aokp_triumph-userdebug
+make -j7 bacon 2>&1 | tee aokp_triumph.log
 
 # Set variables to grab zip names
 PRIMOC=$(tail aokp_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 PRIMOU=$(tail aokp_primou.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+TRIUMPH=$(tail aokp_triumph.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 
 REALDATE=`date +%F`
 
 #Upload to goo
 scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
 scp -P 2222 $PRIMOU gannon5197@upload.goo.im:~/public_html/aokp/primou/nightlies/
+scp -P 2222 $TRIUMPH gannon5197@upload.goo.im:~/public_html/aokp/triumph/nightlies/
 
 END=$(date +%s)
 ELAPSED=$((END - START))
