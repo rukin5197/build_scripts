@@ -20,6 +20,13 @@ cd $HOME
 # it if it hangs.                                                     #
 repo sync -j10
 
+# Checking out because it likes to go over my branch
+cd device/htc/primoc
+git checkout jb
+cd ../primou
+git checkout jb
+cd $HOME
+
 # Grab my cherries
 # Adding Primo
 cd vendor/htc
@@ -45,6 +52,7 @@ cd $HOME
 . build/envsetup.sh
 lunch aokp_primoc-userdebug
 make clobber && make clean
+rm -rf aokp_primoc.log aokp_primou.log aokp_triumph.log
 make -j7 bacon 2>&1 | tee aokp_primoc.log
 lunch aokp_primou-userdebug
 make -j7 bacon 2>&1 | tee aokp_primou.log
@@ -55,7 +63,7 @@ make -j7 bacon 2>&1
 device/motorola/triumph/releasetools/triumph_ota_from_target_files -v \
 	   -p out/host/linux-x86 \
 	   -k build/target/product/security/testkey \
-           --backup=true \
+           --backup=false \
 	   --override_device=triumph,WX435,fb0 \
 	   out/target/product/triumph/obj/PACKAGING/target_files_intermediates/aokp_triumph-target_files-eng.gannon5197.zip out/target/product/triumph/aokp_triumph-ota-eng.gannon5197.zip && ./vendor/aokp/tools/squisher | tee aokp_triumph.log
 

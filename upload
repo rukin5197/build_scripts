@@ -8,7 +8,7 @@ cd $HOME
 # Set variables to grab zip names
 PRIMOC=$(tail aokp_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 PRIMOU=$(tail aokp_primou.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
-TRIUMPH=$(tail aokp_triumph.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ -d')
+TRIUMPH=$(tail aokp_triumph.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
 
 REALDATE=`date +%F`
 
