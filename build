@@ -43,9 +43,9 @@ cd frameworks/native
 git fetch http://review.cyanogenmod.com/CyanogenMod/android_frameworks_native refs/changes/16/25116/1 && git cherry-pick FETCH_HEAD
 cd $HOME
 cd hardware/qcom/display
-git fetch http://review.cyanogenmod.com/CyanogenMod/android_hardware_qcom_display refs/changes/17/25117/1 && git cherry-pick FETCH_HEAD
-git fetch http://review.cyanogenmod.com/CyanogenMod/android_hardware_qcom_display refs/changes/18/25118/1 && git cherry-pick FETCH_HEAD
-git fetch http://review.cyanogenmod.com/CyanogenMod/android_hardware_qcom_display refs/changes/19/25119/1 && git cherry-pick FETCH_HEAD
+git fetch https://github.com/rukin5197/android_hardware_qcom_display refs/heads/jellybean && git cherry-pick 3a15999ffe560e3765ecfa0b028882642693882b
+git cherry-pick 6bd867a125033fa0cd40c745e48e8e5a40913a00
+git cherry-pick b9762f5aee7be2fb6d2597334bccded85ff3595c
 cd $HOME
 
 # Make the builds.
