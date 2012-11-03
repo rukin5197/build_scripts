@@ -38,14 +38,18 @@ git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-p
 cd $HOME
 
 # Grab the extra features. Make sure to keep these up to date!
-# Legacy Graphics
-cd frameworks/native
+# Fix mute on first boot
+cd frameworks/base
+git fetch http://review.cyanogenmod.com/CyanogenMod/android_frameworks_base refs/changes/02/25502/1 && git cherry-pick FETCH_HEAD
+# Fixing Graphics Glitches
+cd ../native
 git fetch http://review.cyanogenmod.com/CyanogenMod/android_frameworks_native refs/changes/16/25116/1 && git cherry-pick FETCH_HEAD
 cd $HOME
 cd hardware/qcom/display
-git fetch https://github.com/rukin5197/android_hardware_qcom_display refs/heads/jellybean && git cherry-pick 3a15999ffe560e3765ecfa0b028882642693882b
-git cherry-pick 6bd867a125033fa0cd40c745e48e8e5a40913a00
-git cherry-pick b9762f5aee7be2fb6d2597334bccded85ff3595c
+git fetch https://github.com/rukin5197/android_hardware_qcom_display refs/heads/jellybean
+git cherry-pick 4d5124a8c45cafb769fe3ca13d2af2d0a89996cf
+git cherry-pick df3140dfa920919cfe949dd01f14a741f220942b
+git cherry-pick ae7915ab4cbf275b50bc77e4d97546b585a3bd4a
 cd $HOME
 
 # Make the builds.
