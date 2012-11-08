@@ -149,7 +149,7 @@ brunch triumph;
 hacktriumph;
 uploadtriumph;
 end;
-pause;
+pause;;
 4) echo "Bye!"
 exit 1;;
 *) echo "$opt is an invaild option. Please select option between 1-4 only";
