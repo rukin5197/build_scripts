@@ -90,5 +90,4 @@ VideoCamera;
 brunch primoc 2>&1 | tee pa_primoc.log;
 uploadprimoc;
 end;
-pause;;
 done
