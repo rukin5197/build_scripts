@@ -145,6 +145,7 @@ pause;;
 sync;
 clean;
 start;
+triumph;
 brunch triumph 2>&1 | tee aokp_triumph.log;
 hacktriumph;
 uploadtriumph;
