@@ -7,38 +7,69 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
+HOME=~/android/pa
 
 # Starting Timer for build
+start() {
 START=$(date +%s)
-DEVICE="$1"
-ADDITIONAL="$2"
-HOME=~/android/pa
+}
 
 # Clean out old builds
 cd $HOME
-# Sync Source, not too fast though, I don't want to have to restart   #
-# it if it hangs.                                                     #
-repo sync -j10
+. build/envsetup.sh
+clear
 
-# Grab my cherries
+sync() {
+echo -n "would you like to sync yourself? (y/n)? "
+read que
+
+if [ "$que" == "y" ]; then
+repo sync -j10
+else
+echo "you better be sure"
+fi
+}
+
+clean(){
+echo -n "would you like to clean yourself? (y/n)? "
+read que
+
+if [ "$que" == "y" ]; then
+make clobber && make clean
+rm -rf out
+else
+echo "you better be sure"
+fi
+}
+
+# Cherries
+primo() {
+cd $HOME
 cd vendor/pa
 git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick 4f50a6deda034befaca6a3608ef89cb15a002f64
 cd $HOME
+}
 
-# Make the builds.
-. build/envsetup.sh
-lunch pa_primoc-userdebug
-make clobber && make clean
-make -j7 bacon | tee pa_primoc.log
+VideoCamera() {
+cd $HOME
+cd frameworks/av
+git fetch https://github.com/jmztaylor/android_frameworks_av/
+git cherry-pick f04c3e9b806340da53832a70a448a5bacb191df1
+cd $HOME
+cd hardware/qcom/media
+git fetch https://github.com/jmztaylor/android_hardware_qcom_media-1/
+git cherry-pick b5a22a09fb55217d0184febc5d7fb0b270b5d901
+cd $HOME
+}
 
-# Set variables to grab zip names
-PRIMOC=$(tail pa_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+# Uploads
+uploadprimoc() {
+cd $HOME
+cd out/target/product/primoc
+scp -P 2222 pa_primoc-* gannon5197@upload.goo.im:~/public_html/paranoid/primoc/nightlies/
+}
 
-REALDATE=`date +%F`
-
-#Upload to goo
-scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/paranoid/primoc/nightlies/
-
+end() {
 END=$(date +%s)
 ELAPSED=$((END - START))
 E_MIN=$((ELAPSED / 60))
@@ -46,6 +77,18 @@ E_SEC=$((ELAPSED - E_MIN * 60))
 printf "Elapsed: "
 [ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
 printf "%d sec(s)\n" $E_SEC
+}
 
-#All done!
-echo "finished with the build! Don't forget to tell XDA!"
+while :
+do
+clear
+sync;
+clean;
+start;
+primo;
+VideoCamera;
+brunch primoc 2>&1 | tee pa_primoc.log;
+uploadprimoc;
+end;
+pause;;
+done
