@@ -87,8 +87,7 @@ clean;
 start;
 primo;
 VideoCamera;
-lunch pa_primoc-userdebug
-make -j8 bacon 2>&1 | tee pa_primoc.log;
+brunch primoc 2>&1 | tee pa_primoc.log;
 uploadprimoc;
 end;
 done
