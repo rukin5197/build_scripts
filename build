@@ -73,21 +73,21 @@ cd $HOME
 
 # Uploads
 uploadprimoc() {
-find . -name *aokp_\*unofficial*.zip -printf %p\\n -exec scp {} gannon5197@upload.goo.im:public_html/aokp/primoc/nightlies/ \:
-ssh gannon5197@upload.goo.im chmod 755 -R public_html/ \:
-rm update_*
+cd $HOME
+cd out/target/product/primoc
+scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
 }
 
 uploadprimou() {
-find . -name *aokp_\*unofficial*.zip -printf %p\\n -exec scp {} gannon5197@upload.goo.im:public_html/aokp/primou/nightlies/ \:
-ssh gannon5197@upload.goo.im chmod 755 -R public_html/ \:
-rm update_*
+cd $HOME
+cd out/target/product/primou
+scp -P 2222 aokp_primou_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primou/nightlies/
 }
 
 uploadtriumph() {
-find . -name *aokp_\*unofficial*.zip -printf %p\\n -exec scp {} gannon5197@upload.goo.im:public_html/aokp/triumph/nightlies/ \:
-ssh gannon5197@upload.goo.im chmod 755 -R public_html/ \:
-rm update_*
+cd $HOME
+cd out/target/product/triumph
+scp -P 2222 aokp_triumph_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/triumph/nightlies/
 }
 
 # Hacks
