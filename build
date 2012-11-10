@@ -46,7 +46,7 @@ fi
 primo() {
 cd $HOME
 cd vendor/pa
-git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick e0575113c0dacc10023f0bdb69c066c618de8422
+git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick 4f50a6deda034befaca6a3608ef89cb15a002f64
 cd $HOME
 }
 
@@ -87,7 +87,8 @@ clean;
 start;
 primo;
 VideoCamera;
-brunch primoc 2>&1 | tee pa_primoc.log;
+lunch pa_primoc-userdebug
+make -j8 primoc 2>&1 | tee pa_primoc.log;
 uploadprimoc;
 end;
 done
