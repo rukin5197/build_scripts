@@ -57,11 +57,11 @@ fi
 #}
 
 # Uploads
-#uploadprimoc() {
-#cd $HOME
-#cd out/target/product/primoc
-#scp -P 2222 aokp_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
-#}
+uploadprimoc() {
+cd $HOME
+cd out/target/product/primoc
+scp -P 2222 AOSP-Nightlies-* gannon5197@upload.goo.im:~/public_html/aosp/primoc/nightlies/
+}
 
 end() {
 END=$(date +%s)
@@ -81,5 +81,6 @@ clean;
 start;
 lunch full_primoc-userdebug
 make -j8 otapackage 2>&1 | tee aosp_primoc.log;
+uploadprimoc;
 end;
 done
