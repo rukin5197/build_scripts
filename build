@@ -63,11 +63,11 @@ VideoCamera() {
 cd $HOME
 cd frameworks/av
 git fetch https://github.com/jmztaylor/android_frameworks_av/
-git cherry-pick f04c3e9b806340da53832a70a448a5bacb191df1
+git cherry-pick d09a907c2eee3d8dfac4f0875920999329e4e3a6
 cd $HOME
 cd hardware/qcom/media
 git fetch https://github.com/jmztaylor/android_hardware_qcom_media-1/
-git cherry-pick b5a22a09fb55217d0184febc5d7fb0b270b5d901
+git cherry-pick 2fc97cb09c5dc82d6d4b6f17070abb75d13e0434
 cd $HOME
 }
 
