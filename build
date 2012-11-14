@@ -43,24 +43,25 @@ fi
 }
 
 # Cherries
-VideoCamera() {
-cd $HOME
-cd frameworks/av
-git fetch https://github.com/jmztaylor/android_frameworks_av/
-git cherry-pick f04c3e9b806340da53832a70a448a5bacb191df1
-cd $HOME
-cd hardware/qcom/media
-git fetch https://github.com/jmztaylor/android_hardware_qcom_media-1/
-git cherry-pick b5a22a09fb55217d0184febc5d7fb0b270b5d901
-cd $HOME
-}
+# Disabling until it gets fixed
+#VideoCamera() {
+#cd $HOME
+#cd frameworks/av
+#git fetch https://github.com/jmztaylor/android_frameworks_av/
+#git cherry-pick f04c3e9b806340da53832a70a448a5bacb191df1
+#cd $HOME
+#cd hardware/qcom/media
+#git fetch https://github.com/jmztaylor/android_hardware_qcom_media-1/
+#git cherry-pick b5a22a09fb55217d0184febc5d7fb0b270b5d901
+#cd $HOME
+#}
 
 # Uploads
-uploadprimoc() {
-cd $HOME
-cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
-}
+#uploadprimoc() {
+#cd $HOME
+#cd out/target/product/primoc
+#scp -P 2222 aokp_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
+#}
 
 end() {
 END=$(date +%s)
@@ -78,9 +79,7 @@ clear
 sync;
 clean;
 start;
-VideoCamera;
 lunch full_primoc-userdebug
 make -j8 otapackage 2>&1 | tee aosp_primoc.log;
-uploadprimoc;
 end;
 done
