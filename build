@@ -37,6 +37,9 @@ read que
 if [ "$que" == "y" ]; then
 make clobber && make clean
 rm -rf out
+cd kernel/htc/primoc
+make mrproper
+cd $HOME
 else
 echo "you better be sure"
 fi
@@ -63,11 +66,11 @@ VideoCamera() {
 cd $HOME
 cd frameworks/av
 git fetch https://github.com/rukin5197/android_frameworks_av/
-git cherry-pick 53f41ed868424a9de8d273de45a186b179cf557f
+git cherry-pick c5c2b285e19b3a007d25b7eafaaf913837892c84
 cd $HOME
 cd hardware/qcom/media
 git fetch https://github.com/rukin5197/hardware_qcom_media/
-git cherry-pick bd25b9088d75b52d300d649259f9b64056a3d208
+git cherry-pick 5bab33bef04b4d9593127d81b6f7038ff81fea37
 cd $HOME
 }
 
