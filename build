@@ -74,6 +74,18 @@ git cherry-pick 5bab33bef04b4d9593127d81b6f7038ff81fea37
 cd $HOME
 }
 
+LegacyGraphics() {
+cd $HOME
+cd hardware/qcom/display
+git fetch https://github.com/rukin5197/android_hardware_qcom_display/
+git cherry-pick 81a3d220df856a76b82195332ea8f4bfdb0e2494
+cd $HOME
+cd frameworks/native
+git fetch https://github.com/maxwen/native/
+git cherry-pick 04b829d779c619d51abd58b03929e8edee8967c4
+cd $HOME
+}
+
 # Uploads
 uploadprimoc() {
 cd $HOME
