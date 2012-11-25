@@ -68,7 +68,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/nightlies/
+scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/tests/
 }
 
 end() {
