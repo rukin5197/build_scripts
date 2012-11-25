@@ -47,7 +47,8 @@ fi
 primoc() {
 cd $HOME
 cd vendor/aokp
-git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-pick a275a2cd4bacdf4f04f829921ea2e05c8334967f
+git fetch https://github.com/rukin5197/vendor_aokp
+git cherry-pick a275a2cd4bacdf4f04f829921ea2e05c8334967f
 cd $HOME
 }
 
