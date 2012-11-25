@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/aokpjb
+HOME=~/android/aokp
 
 # Starting Timer for build
 start() {
@@ -37,8 +37,6 @@ read que
 if [ "$que" == "y" ]; then
 make clobber && make clean
 rm -rf out
-cd kernel/htc/primoc
-make mrproper
 cd $HOME
 else
 echo "you better be sure"
@@ -46,19 +44,10 @@ fi
 }
 
 # Cherries
-primo() {
-cd $HOME
-cd vendor/htc
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_htc refs/changes/97/3797/7 && git cherry-pick FETCH_HEAD
-cd ../aokp
-git fetch http://gerrit.sudoservers.com/AOKP/vendor_aokp refs/changes/77/3777/7 && git cherry-pick FETCH_HEAD
-cd $HOME
-}
-
-triumph() {
+primoc() {
 cd $HOME
 cd vendor/aokp
-git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-pick e8d205d044d1b6332ac05bae290fedf98025e6af
+git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-pick a275a2cd4bacdf4f04f829921ea2e05c8334967f
 cd $HOME
 }
 
@@ -78,29 +67,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primoc/nightlies/
-}
-
-uploadprimou() {
-cd $HOME
-cd out/target/product/primou
-scp -P 2222 aokp_primou_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/primou/nightlies/
-}
-
-uploadtriumph() {
-cd $HOME
-cd out/target/product/triumph
-scp -P 2222 aokp_triumph_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp/triumph/nightlies/
-}
-
-# Hacks
-hacktriumph() {
-device/motorola/triumph/releasetools/triumph_ota_from_target_files -v \
-	   -p out/host/linux-x86 \
-	   -k build/target/product/security/testkey \
-           --backup=false \
-	   --override_device=triumph,WX435,fb0 \
-	   out/target/product/triumph/obj/PACKAGING/target_files_intermediates/aokp_triumph-target_files-eng.gannon5197.zip out/target/product/triumph/aokp_triumph-ota-eng.gannon5197.zip && ./vendor/aokp/tools/squisher
+scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/nightlies/
 }
 
 end() {
@@ -116,48 +83,12 @@ printf "%d sec(s)\n" $E_SEC
 while :
 do
 clear
-echo " Which Device you building today?"
-echo "1. PrimoC"
-echo "2. PrimoU"
-echo "3. Triumph"
-echo "4. Exit"
-echo -n "Please enter option [1 - 4]"
-read opt
-case $opt in
-1) echo "************* Building PrimoC *************";
 sync;
 clean;
 start;
-primo;
-VideoCamera;
+primoc;
+#VideoCamera;
 brunch primoc 2>&1 | tee aokp_primoc.log;
 uploadprimoc;
 end;
-pause;;
-2) echo "************* Building PrimoU *************";
-sync;
-clean;
-start;
-primo;
-VideoCamera;
-brunch primou 2>&1 | tee aokp_primou.log;
-uploadprimou;
-end;
-pause;;
-3) echo "************* Building Triumph *************";
-sync;
-clean;
-start;
-triumph;
-brunch triumph 2>&1 | tee aokp_triumph.log;
-hacktriumph;
-uploadtriumph;
-end;
-pause;;
-4) echo "Bye!"
-exit 1;;
-*) echo "$opt is an invaild option. Please select option between 1-4 only";
-echo "Press [enter] key to continue. . .";
-read enterKey;;
-esac
 done
