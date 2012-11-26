@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/pa
+HOME=~/android/cm9
 
 # Starting Timer for build
 start() {
@@ -43,30 +43,12 @@ fi
 }
 
 # Cherries
-primo() {
-cd $HOME
-cd vendor/pa
-git fetch https://github.com/rukin5197/android_vendor_pa refs/heads/jellybean && git cherry-pick e0575113c0dacc10023f0bdb69c066c618de8422
-cd $HOME
-}
-
-VideoCamera() {
-cd $HOME
-cd frameworks/av
-git fetch https://github.com/jmztaylor/android_frameworks_av/
-git cherry-pick f04c3e9b806340da53832a70a448a5bacb191df1
-cd $HOME
-cd hardware/qcom/media
-git fetch https://github.com/jmztaylor/android_hardware_qcom_media-1/
-git cherry-pick b5a22a09fb55217d0184febc5d7fb0b270b5d901
-cd $HOME
-}
 
 # Uploads
-uploadprimoc() {
+uploadm3s() {
 cd $HOME
-cd out/target/product/primoc
-scp -P 2222 pa_primoc-* gannon5197@upload.goo.im:~/public_html/paranoid/primoc/nightlies/
+cd out/target/product/m3s
+scp -P 2222 cm-9-* gannon5197@upload.goo.im:~/public_html/cm9/m3s/elite/tests/
 }
 
 end() {
@@ -85,10 +67,7 @@ clear
 sync;
 clean;
 start;
-primo;
-VideoCamera;
-lunch pa_primoc-userdebug
-make -j8 primoc 2>&1 | tee pa_primoc.log;
-uploadprimoc;
+brunch m3s 2>&1 | tee cm_m3s.log;
+uploadm3s;
 end;
 done
