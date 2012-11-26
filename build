@@ -48,7 +48,7 @@ fi
 uploadm3s() {
 cd $HOME
 cd out/target/product/m3s
-scp -P 2222 cm-9-* gannon5197@upload.goo.im:~/public_html/cm9/m3s/elite/tests/
+scp -P 2222 cm-9-* gannon5197@upload.goo.im:~/public_html/cm9/elite/tests/
 }
 
 end() {

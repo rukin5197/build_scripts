@@ -1,14 +1,20 @@
 #!/bin/bash
 #
 
-HOME=~/android/pa
+HOME=~/android/cm9
 
 cd $HOME
 
-# Set variables to grab zip names
-PRIMOC=$(tail pa_primoc.log | cut -f3 -d ' ' | cut -f1 -d ' ' | sed -e '/^$/ d')
+# Uploads
+uploadelite() {
+cd $HOME
+cd out/target/product/m3s
+scp -P 2222 cm-9*.zip gannon5197@upload.goo.im:~/public_html/cm9/elite/tests/
+}
 
-REALDATE=`date +%F`
-
-#Upload to goo
-scp -P 2222 $PRIMOC gannon5197@upload.goo.im:~/public_html/paranoid/primoc/nightlies/
+while :
+do
+clear
+uploadelite;
+end;
+done
