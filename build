@@ -37,8 +37,6 @@ read que
 if [ "$que" == "y" ]; then
 make clobber && make clean
 rm -rf out
-cd kernel/htc/primoc
-make mrproper
 cd $HOME
 else
 echo "you better be sure"
