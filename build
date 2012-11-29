@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/kk
+HOME=~/android/triumph
 
 # Starting Timer for build
 start() {
@@ -42,33 +42,11 @@ echo "you better be sure"
 fi
 }
 
-# Cherries
-primo() {
-cd $HOME
-cd vendor/htc
-git fetch https://github.com/rukin5197/android_vendor_htc refs/heads/kk && git cherry-pick a46e9ee39ae9cc8d770d8f5ed00c0266de907bd6
-cd ../aokp
-git fetch https://github.com/rukin5197/vendor_aokp && git cherry-pick be0a4833fc0c8cffa3a917cfe193dd5eabb982dc
-cd $HOME
-}
-
-VideoCamera() {
-cd $HOME
-cd frameworks/av
-git fetch https://github.com/jmztaylor/android_frameworks_av/
-git cherry-pick f04c3e9b806340da53832a70a448a5bacb191df1
-cd $HOME
-cd hardware/qcom/media
-git fetch https://github.com/jmztaylor/android_hardware_qcom_media-1/
-git cherry-pick b5a22a09fb55217d0184febc5d7fb0b270b5d901
-cd $HOME
-}
-
 # Uploads
-uploadprimoc() {
+upload() {
 cd $HOME
-cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/kingkang/primoc/nightlies/
+cd out/target/product/triumph
+scp -P 2222 cm-10-*.zip gannon5197@upload.goo.im:~/public_html/cm10/triumph/nightlies/
 }
 
 end() {
@@ -87,9 +65,7 @@ clear
 sync;
 clean;
 start;
-primo;
-VideoCamera;
-brunch primoc 2>&1 | tee kk_primoc.log;
-uploadprimoc;
+brunch triumph 2>&1 | tee cm_triumph.log;
+upload;
 end;
 done
