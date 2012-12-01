@@ -63,7 +63,7 @@ cd $HOME
 triumphril() {
 cd $HOME
 cd frameworks/base
-git fetch https://github.com/rukin5197/frameworks_base_aokp refs/heads/jb && git cherry-pick 887eae7ecf111e3d3327b81b171d3bc09d6bedb7
+git fetch https://github.com/rukin5197/frameworks_base_aokp refs/heads/jb && git cherry-pick 4412dcb6821caf19e08132e361105cbe03e5483c
 cd $HOME
 }
 
