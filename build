@@ -56,7 +56,14 @@ cd $HOME
 triumph() {
 cd $HOME
 cd vendor/aokp
-git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-pick e8d205d044d1b6332ac05bae290fedf98025e6af
+git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb && git cherry-pick d90400cc5ded4a1b2cb604941612105cd48f3a96
+cd $HOME
+}
+
+triumphril() {
+cd $HOME
+cd frameworks/base
+git fetch https://github.com/rukin5197/frameworks_base_aokp refs/heads/jb && git cherry-pick 887eae7ecf111e3d3327b81b171d3bc09d6bedb7
 cd $HOME
 }
 
@@ -159,6 +166,7 @@ sync;
 clean;
 start;
 triumph;
+triumphril;
 brunch triumph 2>&1 | tee aokp_triumph.log;
 hacktriumph;
 uploadtriumph;
