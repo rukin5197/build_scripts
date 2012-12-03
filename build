@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/triumph
+HOME=~/android/cm10
 
 # Starting Timer for build
 start() {
@@ -42,6 +42,28 @@ echo "you better be sure"
 fi
 }
 
+# Cherries
+ril() {
+cd $HOME
+cd frameworks/base
+git fetch https://github.com/MTCM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 573db959d74e14b41f914bcb62baba1f36bc5baa
+cd $HOME
+}
+
+headset() {
+cd $HOME
+cd frameworks/base
+git fetch https://github.com/MTCM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 20f7bbc8d6130fb23b63f6c0164792ef7cc3a462
+cd $HOME
+}
+
+wifi() {
+cd $HOME
+cd hardware/libhardware_legacy
+git fetch https://github.com/MTCM10/android_hardware_libhardware_legacy refs/heads/jellybean && git cherry-pick 17f3e967e57f0b52a43497444e1b29e618fbb3ab
+cd $HOME
+}
+
 # Uploads
 upload() {
 cd $HOME
@@ -65,6 +87,9 @@ clear
 sync;
 clean;
 start;
+ril;
+headset;
+wifi;
 brunch triumph 2>&1 | tee cm_triumph.log;
 upload;
 end;
