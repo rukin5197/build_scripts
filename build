@@ -77,9 +77,10 @@ device/motorola/triumph/releasetools/triumph_ota_from_target_files -v \
 diets() {
 cd $HOME
 cd frameworks/base
-git cherry-pick e8eaa7a1b54d55d12df08d677aaeadb67633f10d
-git cherry-pick 4c1758364070c34f3b646c0f850999182aed9da8
-git cherry-pick a0a89f215b1662db50d2f4a83df2353573c83ae0
+git cherry-pick 06d3bb994047885651d52392b40e250832318821
+git cherry-pick 14dfbaf378dcaf38845f77c6a6cbd2f87700613a
+git cherry-pick 09ed05db81d06cb14d70f2583b46d9788ff418e0
+git cherry-pick 8218bc598279957534375b8df4db9307ff5327af
 cd $HOME
 cd build
 git fetch https://github.com/MTCM10/android_build refs/heads/jellybean
