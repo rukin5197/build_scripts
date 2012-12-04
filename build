@@ -65,13 +65,13 @@ cd $HOME
 }
 
 #hack() {
-device/motorola/triumph/releasetools/triumph_ota_from_target_files -v \
-	   -p out/host/linux-x86 \
-	   -k build/target/product/security/testkey \
-           --backup=false \
-	   --override_device=triumph,WX435,fb0 \
-	   out/target/product/triumph/obj/PACKAGING/target_files_intermediates/cm_triumph-target_files-eng.rukin5197.zip out/target/product/triumph/cm_triumph-ota-eng.rukin5197.zip && ./vendor/cm/tools/squisher
-}
+#device/motorola/triumph/releasetools/triumph_ota_from_target_files -v \
+#	   -p out/host/linux-x86 \
+#	   -k build/target/product/security/testkey \
+#          --backup=false \
+#	   --override_device=triumph,WX435,fb0 \
+#	   out/target/product/triumph/obj/PACKAGING/target_files_intermediates/cm_triumph-target_files-eng.rukin5197.zip out/target/product/triumph/cm_triumph-ota-eng.rukin5197.zip && ./vendor/cm/tools/squisher
+#}
 
 # Dieting
 diets() {
@@ -82,10 +82,6 @@ cd $HOME
 cd build
 git fetch https://github.com/MTCM10/android_build refs/heads/jellybean
 git cherry-pick a82c9eb91a7f07500f75cf6dbe38e1ec1e384876
-cd $HOME
-#cd packages/apps/Trebuchet
-#git fetch https://github.com/MTCM10/android_packages_apps_Trebuchet refs/heads/jellybean
-#git cherry-pick c19275732c401b631fe0c043e659eaa4d458c6a1
 cd $HOME
 #cd external/svox
 #git fetch https://github.com/MTCM10/android_external_svox refs/heads/jellybean
