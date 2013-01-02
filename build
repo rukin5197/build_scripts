@@ -46,14 +46,7 @@ fi
 ril() {
 cd $HOME
 cd frameworks/base
-git fetch https://github.com/MTCM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 573db959d74e14b41f914bcb62baba1f36bc5baa
-cd $HOME
-}
-
-headset() {
-cd $HOME
-cd frameworks/base
-git fetch https://github.com/MTCM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 20f7bbc8d6130fb23b63f6c0164792ef7cc3a462
+git fetch https://github.com/MTCM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 1bae031f25be35a34c5b5ad79762dc0b61291421
 cd $HOME
 }
 
@@ -64,28 +57,12 @@ git fetch https://github.com/MTCM10/android_hardware_libhardware_legacy refs/hea
 cd $HOME
 }
 
-#hack() {
-#device/motorola/triumph/releasetools/triumph_ota_from_target_files -v \
-#	   -p out/host/linux-x86 \
-#	   -k build/target/product/security/testkey \
-#          --backup=false \
-#	   --override_device=triumph,WX435,fb0 \
-#	   out/target/product/triumph/obj/PACKAGING/target_files_intermediates/cm_triumph-target_files-eng.rukin5197.zip out/target/product/triumph/cm_triumph-ota-eng.rukin5197.zip && ./vendor/cm/tools/squisher
-#}
-
 # Dieting
 diets() {
-cd $HOME
-#cd frameworks/base
-#git cherry-pick ba9930ce11b386d4f39a09b68c4205036d2c41af
 cd $HOME
 cd build
 git fetch https://github.com/MTCM10/android_build refs/heads/jellybean
 git cherry-pick a82c9eb91a7f07500f75cf6dbe38e1ec1e384876
-cd $HOME
-#cd external/svox
-#git fetch https://github.com/MTCM10/android_external_svox refs/heads/jellybean
-#git cherry-pick e06b991cc5b3406074e3081f5544873e6060cab9
 cd $HOME
 }
 
@@ -112,12 +89,11 @@ clear
 sync;
 clean;
 start;
-ril;
-headset;
+#ril;
+#headset;
 wifi;
 diets 2>&1 | tee diets.log;
 brunch triumph 2>&1 | tee cm_triumph.log;
-hack;
 upload;
 end;
 done
