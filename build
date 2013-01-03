@@ -43,28 +43,6 @@ fi
 }
 
 # Cherries
-ril() {
-cd $HOME
-cd frameworks/base
-git fetch https://github.com/MTCM10/android_frameworks_base refs/heads/jellybean && git cherry-pick 1bae031f25be35a34c5b5ad79762dc0b61291421
-cd $HOME
-}
-
-wifi() {
-cd $HOME
-cd hardware/libhardware_legacy
-git fetch https://github.com/MTCM10/android_hardware_libhardware_legacy refs/heads/jellybean && git cherry-pick 17f3e967e57f0b52a43497444e1b29e618fbb3ab
-cd $HOME
-}
-
-# Dieting
-diets() {
-cd $HOME
-cd build
-git fetch https://github.com/MTCM10/android_build refs/heads/jellybean
-git cherry-pick a82c9eb91a7f07500f75cf6dbe38e1ec1e384876
-cd $HOME
-}
 
 # Uploads
 upload() {
@@ -89,10 +67,6 @@ clear
 sync;
 clean;
 start;
-#ril;
-#headset;
-wifi;
-diets 2>&1 | tee diets.log;
 brunch triumph 2>&1 | tee cm_triumph.log;
 upload;
 end;
