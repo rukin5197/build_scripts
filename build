@@ -17,6 +17,7 @@ START=$(date +%s)
 # Clean out old builds
 cd $HOME
 . build/envsetup.sh
+lunch cm_triumph-userdebug
 clear
 
 sync() {
