@@ -1,20 +1,20 @@
 #!/bin/bash
 #
 
-HOME=~/android/aokpjb
+HOME=~/android/aokp
 
 cd $HOME
 
 # Uploads
 upload() {
 cd $HOME
-cd out/target/product/primoc
-scp -P 2222 cm-10-* gannon5197@upload.goo.im:~/public_html/cm10/triumph/nightlies/
+cd out/target/product/triumph
+scp -P 2222 aokp_triumph_unofficial_*.zip gannon5197@upload.goo.im:~/public_html/aokp/triumph/nightlies/
 }
 
 while :
 do
 clear
-uploadprimoc;
+upload;
 end;
 done

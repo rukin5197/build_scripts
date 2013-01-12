@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/cm10
+HOME=~/android/triumph
 
 # Starting Timer for build
 start() {
@@ -17,7 +17,6 @@ START=$(date +%s)
 # Clean out old builds
 cd $HOME
 . build/envsetup.sh
-lunch cm_triumph-userdebug
 clear
 
 sync() {
@@ -49,7 +48,7 @@ fi
 upload() {
 cd $HOME
 cd out/target/product/triumph
-scp -P 2222 cm-10-*.zip gannon5197@upload.goo.im:~/public_html/cm10/triumph/nightlies/
+scp -P 2222 aokp_triumph_unofficial_*.zip gannon5197@upload.goo.im:~/public_html/aokp/triumph/nightlies/
 }
 
 end() {
@@ -68,7 +67,7 @@ clear
 sync;
 clean;
 start;
-brunch triumph 2>&1 | tee cm_triumph.log;
+brunch triumph 2>&1 | tee aokp_triumph.log;
 upload;
 end;
 done
