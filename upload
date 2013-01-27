@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-HOME=~/android/aokpjb
+HOME=~/android/4.2
 
 cd $HOME
 
@@ -9,7 +9,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/tests/
+scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/tests/
 }
 
 while :
