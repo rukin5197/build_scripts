@@ -43,24 +43,15 @@ echo "you better be sure"
 fi
 }
 
-# PMEM
-pmem() {
+# ION
+ion() {
 cd $HOME
 cd device/htc/primoc
-git checkout jb-mr1
+git checkout ion
 cd $HOME
 }
 
-# Kernel Hack
-kernel() {
-cd $HOME
-cd kernel/htc/primoc
-make ARCH=arm primoc_defconfig
-make -j6 ARCH=arm CROSS_COMPILE="/home/gannon5197/toolchains/android_prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-"
-cd drivers/net/wireless/bcmdhd/
-cp -R bcmdhd.ko /home/gannon5197/android/aokp/bcmdhd.ko
-cd $HOME
-}
+# Reverts
 
 # Cherries
 primoc() {
@@ -81,7 +72,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/nightlies/
+scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/nightlies/ion/
 cd $HOME
 }
 
@@ -100,11 +91,10 @@ do
 clear
 sync;
 clean;
-pmem;
+ion;
 start;
 primoc;
 Headset;
-kernel;
 brunch primoc 2>&1 | tee aokp_primoc.log
 uploadprimoc;
 end;
