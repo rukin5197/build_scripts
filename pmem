@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/aokp
+HOME=~/android/slim
 
 # Starting Timer for build
 start() {
@@ -43,37 +43,48 @@ echo "you better be sure"
 fi
 }
 
+# Manifest
+manifest() {
+cd $HOME
+wget https://github.com/rukin5197/android_local_manifest/raw/slim4.2/local_manifest.xml -O .repo/local_manifest.xml
+cd $HOME
+}
+
 # PMEM
 pmem() {
 cd $HOME
 cd device/htc/primoc
-git checkout jb-mr1
+git checkout slim
 cd $HOME
 }
 
-# Kernel Hack
-kernel() {
+# Fixes
+carrier() {
+cd frameworks/base
+git fetch https://github.com/rukin5197/frameworks_base-1 refs/heads/jb4.2 && git cherry-pick 58e74ba37f701b96efd9828e466ead1c9204f94d
 cd $HOME
-cd kernel/htc/primoc
-make ARCH=arm primoc_defconfig
-make -j6 ARCH=arm CROSS_COMPILE="/home/gannon5197/toolchains/android_prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-"
-cd drivers/net/wireless/bcmdhd/
-cp -R bcmdhd.ko /home/gannon5197/android/aokp/bcmdhd.ko
-cd $HOME
+cd packages/apps/Settings
+git fetch https://github.com/rukin5197/packages_apps_Settings refs/heads/jb4.2 && git cherry-pick 61e3cc81f0ddb44b28814e7ee5f1729b038ab7a9
 }
 
-# Cherries
-primoc() {
-cd $HOME
-cd vendor/aokp
-git fetch https://github.com/rukin5197/vendor_aokp refs/heads/jb-mr1 && git cherry-pick c801bb308845251be249161d7674b8395dab8efd
-cd $HOME
-}
-
-Headset() {
+headset() {
 cd $HOME
 cd frameworks/base
-git fetch https://github.com/rukin5197/frameworks_base_aokp refs/heads/jb-mr1 && git cherry-pick d2c6eb00c5982e42fd181ce5ce17ba273f66cb98
+git cherry-pick 27e18942ab8929f8c44c40c84b2f63577d97e280
+cd $HOME
+}
+
+native() {
+cd $HOME
+cd frameworks/native
+git fetch https://github.com/SlimRoms/frameworks_native refs/heads/jb4.2 && git cherry-pick a5d72b858c1d67f7d857da91177908225aeb23d3
+cd $HOME
+}
+
+MMS() {
+cd $HOME
+cd frameworks/opt/telephony
+git fetch https://github.com/rukin5197/android_frameworks_opt_telephony refs/heads/cm-10.1 && git cherry-pick 2d80211c50b37390356fd2e9d3844a194cc54948
 cd $HOME
 }
 
@@ -81,7 +92,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 aokp_primoc_unofficial_* gannon5197@upload.goo.im:~/public_html/aokp-mr1/primoc/nightlies/
+scp -P 2222 Slim-*.zip gannon5197@upload.goo.im:~/public_html/slim/primoc/nightlies/
 cd $HOME
 }
 
@@ -98,14 +109,17 @@ printf "%d sec(s)\n" $E_SEC
 while :
 do
 clear
+manifest;
 sync;
 clean;
 pmem;
+MMS;
+native;
+headset;
+carrier;
 start;
-primoc;
-Headset;
-kernel;
-brunch primoc 2>&1 | tee aokp_primoc.log
+lunch slim_primoc-userdebug
+make -j6 bacon 2>&1 | tee slim_primoc.log
 uploadprimoc;
 end;
 done

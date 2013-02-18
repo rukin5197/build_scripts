@@ -54,6 +54,13 @@ cd $HOME
 # Reverts
 
 # Cherries
+MMS() {
+cd $HOME
+cd frameworks/opt/telephony
+git fetch https://github.com/rukin5197/android_frameworks_opt_telephony refs/heads/cm-10.1 && git cherry-pick 2d80211c50b37390356fd2e9d3844a194cc54948
+cd $HOME
+}
+
 primoc() {
 cd $HOME
 cd vendor/aokp
@@ -95,6 +102,7 @@ ion;
 start;
 primoc;
 Headset;
+MMS;
 brunch primoc 2>&1 | tee aokp_primoc.log
 uploadprimoc;
 end;
