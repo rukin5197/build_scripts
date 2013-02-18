@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# This script is to make my life easier when building AOKP kangs. It  #
+# will build for all the One V devices, but can be modified for       #
+# others.                                                             #
+# If you want to use this build script you will need to change quite  #
+# A few things, including the DIR, sync -jx, device name, upload url, #
+# etc. Have fun building!                                             #
+
+HOME=~/android/4.2
+
+# Starting Timer for build
+start() {
+START=$(date +%s)
+}
+
+# Clean out old builds
+cd $HOME
+. build/envsetup.sh
+clear
+
+sync() {
+echo -n "would you like to sync yourself? (y/n)? "
+read que
+
+if [ "$que" == "y" ]; then
+repo sync -j10
+else
+echo "you better be sure"
+fi
+}
+
+clean(){
+echo -n "would you like to clean yourself? (y/n)? "
+read que
+
+if [ "$que" == "y" ]; then
+make clobber && make clean
+rm -rf out
+cd $HOME
+else
+echo "you better be sure"
+fi
+}
+
+# Local Manifest
+manifest() {
+cd $HOME
+wget https://github.com/rukin5197/android_local_manifest/raw/cm10.1/local_manifest.xml -O .repo/local_manifest.xml
+cd $HOME
+}
+
+# PMEM
+pmem() {
+cd $HOME
+cd device/htc/primoc
+git checkout cm-10.1
+}
+
+# Reverts
+MMS() {
+cd $HOME
+cd frameworks/opt/telephony
+git fetch https://github.com/rukin5197/android_frameworks_opt_telephony refs/heads/cm-10.1 && git cherry-pick 2d80211c50b37390356fd2e9d3844a194cc54948
+cd $HOME
+}
+
+# Uploads
+uploadprimoc() {
+cd $HOME
+cd out/target/product/primoc
+scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/nightlies/
+cd $HOME
+}
+
+end() {
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n" $E_SEC
+}
+
+while :
+do
+clear
+manifest;
+sync;
+clean;
+pmem;
+MMS;
+start;
+brunch primoc 2>&1 | tee cm_primoc.log;
+uploadprimoc;
+end;
+done

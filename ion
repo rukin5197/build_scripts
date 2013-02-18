@@ -43,35 +43,18 @@ echo "you better be sure"
 fi
 }
 
+# ION
+ion() {
+cd $HOME
+cd device/htc/primoc
+git checkout ion
+}
+
 # Reverts
-Wifi() {
-cd $HOME
-cd frameworks/base
-git fetch https://github.com/rukin5197/android_frameworks_base.git refs/heads/cm-10.1 && git cherry-pick 8b035f4f273067c56639adda5f23ebba8d9ff1f5
-cd $HOME
-}
-
-
-# Cherries
-Singleton() {
-cd $HOME
-cd frameworks/native
-git fetch https://github.com/Evervolv/android_frameworks_native refs/heads/jellybean && git cherry-pick fe0a73400f404f1b0ffc295fda8e0a19b22f03c5
-cd $HOME
-}
-
 MMS() {
 cd $HOME
 cd frameworks/opt/telephony
 git fetch https://github.com/rukin5197/android_frameworks_opt_telephony refs/heads/cm-10.1 && git cherry-pick 2d80211c50b37390356fd2e9d3844a194cc54948
-cd $HOME
-}
-
-KeyGuard() {
-cd $HOME
-cd frameworks/base
-git fetch https://github.com/Andromadus/android_frameworks_base refs/heads/cm10.1 && git cherry-pick 1cb0218a156fa09e9f0c0e58e41f7d10f1de2ccf
-git cherry-pick d7a39224cb648f89b14d41d26546c904b2efce19
 cd $HOME
 }
 
@@ -91,14 +74,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/nightlies/
-cd $HOME
-}
-
-uploadprimou() {
-cd $HOME
-cd out/target/product/primou
-scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primou/nightlies/
+scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/nightlies/ion/
 cd $HOME
 }
 
@@ -118,10 +94,8 @@ clear
 sync;
 clean;
 start;
-Wifi;
+ion;
 MMS;
-Singleton;
-#KeyGuard;
 brunch primoc 2>&1 | tee cm_primoc.log;
 uploadprimoc;
 end;
