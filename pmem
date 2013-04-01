@@ -35,6 +35,7 @@ echo -n "would you like to clean yourself? (y/n)? "
 read que
 
 if [ "$que" == "y" ]; then
+lunch cm_primoc-userdebug
 make clobber && make clean
 rm -rf out
 cd $HOME
@@ -55,13 +56,6 @@ pmem() {
 cd $HOME
 cd device/htc/primoc
 git checkout cm-10.1
-}
-
-# Reverts
-MMS() {
-cd $HOME
-cd frameworks/opt/telephony
-git fetch https://github.com/rukin5197/android_frameworks_opt_telephony refs/heads/cm-10.1 && git cherry-pick 2d80211c50b37390356fd2e9d3844a194cc54948
 cd $HOME
 }
 
@@ -90,7 +84,6 @@ manifest;
 sync;
 clean;
 pmem;
-MMS;
 start;
 brunch primoc 2>&1 | tee cm_primoc.log;
 uploadprimoc;
