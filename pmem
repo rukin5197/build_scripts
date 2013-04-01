@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/4.2
+HOME=~/android/chaos
 
 # Starting Timer for build
 start() {
@@ -35,7 +35,7 @@ echo -n "would you like to clean yourself? (y/n)? "
 read que
 
 if [ "$que" == "y" ]; then
-lunch cm_primoc-userdebug
+lunch cos_primoc-userdebug
 make clobber && make clean
 rm -rf out
 cd $HOME
@@ -47,7 +47,7 @@ fi
 # Local Manifest
 manifest() {
 cd $HOME
-wget https://github.com/rukin5197/android_local_manifest/raw/cm10.1/local_manifest.xml -O .repo/local_manifest.xml
+wget https://github.com/rukin5197/android_local_manifest/raw/cos/local_manifest.xml -O .repo/local_manifest.xml
 cd $HOME
 }
 
@@ -55,7 +55,7 @@ cd $HOME
 pmem() {
 cd $HOME
 cd device/htc/primoc
-git checkout cm-10.1
+git checkout jellybean-mr1
 cd $HOME
 }
 
@@ -63,7 +63,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/nightlies/
+scp -P 2222 cos-* gannon5197@upload.goo.im:~/public_html/cos/primoc/nightlies/
 cd $HOME
 }
 
@@ -85,7 +85,7 @@ sync;
 clean;
 pmem;
 start;
-brunch primoc 2>&1 | tee cm_primoc.log;
+brunch primoc 2>&1 | tee cos_primoc.log;
 uploadprimoc;
 end;
 done
