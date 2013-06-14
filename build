@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/4.2
+HOME=~/android/pa
 
 # Starting Timer for build
 start() {
@@ -35,7 +35,7 @@ echo -n "would you like to clean yourself? (y/n)? "
 read que
 
 if [ "$que" == "y" ]; then
-lunch cm_primoc-userdebug
+lunch pa_ace-userdebug
 make clobber && make clean
 rm -rf out
 cd $HOME
@@ -47,23 +47,15 @@ fi
 # Local Manifest
 manifest() {
 cd $HOME
-wget https://github.com/rukin5197/android_local_manifest/raw/cm10.1/local_manifest.xml -O .repo/local_manifest.xml
-cd $HOME
-}
-
-# PMEM
-pmem() {
-cd $HOME
-cd device/htc/primoc
-git checkout cm-10.1
+wget https://github.com/rukin5197/android_local_manifest/raw/aospa/local_manifest.xml -O .repo/local_manifest.xml
 cd $HOME
 }
 
 # Uploads
-uploadprimoc() {
+uploadace() {
 cd $HOME
-cd out/target/product/primoc
-scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/nightlies/
+cd out/target/product/ace
+scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/aospa/ace/nightlies/
 cd $HOME
 }
 
@@ -83,9 +75,8 @@ clear
 manifest;
 sync;
 clean;
-pmem;
 start;
-brunch primoc 2>&1 | tee cm_primoc.log;
-uploadprimoc;
+brunch ace 2>&1 | tee aospa_ace.log;
+uploadace;
 end;
 done
