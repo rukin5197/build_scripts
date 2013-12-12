@@ -7,7 +7,7 @@
 # A few things, including the DIR, sync -jx, device name, upload url, #
 # etc. Have fun building!                                             #
 
-HOME=~/android/4.2
+HOME=~/android/4.4
 
 # Starting Timer for build
 start() {
@@ -25,6 +25,12 @@ read que
 
 if [ "$que" == "y" ]; then
 repo sync -j10
+cd device/htc/primoc
+git checkout cm-11.0
+cd $HOME
+cd local_manifest
+git checkout cm-11.0
+cd $HOME
 else
 echo "you better be sure"
 fi
@@ -44,24 +50,10 @@ echo "you better be sure"
 fi
 }
 
-cleanprimou(){
-echo -n "would you like to clean yourself? (y/n)? "
-read que
-
-if [ "$que" == "y" ]; then
-lunch cm_primou-userdebug
-make clobber && make clean
-rm -rf out
-cd $HOME
-else
-echo "you better be sure"
-fi
-}
-
 # Local Manifest
 manifest() {
 cd $HOME
-wget https://github.com/rukin5197/android_local_manifest/raw/cm10.1/local_manifest.xml -O .repo/local_manifest.xml
+wget https://github.com/rukin5197/android_local_manifest/raw/cm-11.0/local_manifest.xml -O .repo/local_manifest.xml
 cd $HOME
 }
 
@@ -69,14 +61,7 @@ cd $HOME
 uploadprimoc() {
 cd $HOME
 cd out/target/product/primoc
-scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primoc/nightlies/
-cd $HOME
-}
-
-uploadprimou() {
-cd $HOME
-cd out/target/product/primou
-scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm10.1/primou/nightlies/
+scp -P 2222 cm-10.1-* gannon5197@upload.goo.im:~/public_html/cm11/primoc/nightlies/
 cd $HOME
 }
 
@@ -93,40 +78,12 @@ printf "%d sec(s)\n" $E_SEC
 while :
 do
 clear
-echo " Which Device you building today?"
-echo "1. PrimoC"
-echo "2. PrimoU"
-echo "3. exit"
-echo -n "Please enter option [1 - 3]"
-read opt
-case $opt in
-1) echo "************* Building PrimoC *************";
 manifest;
 sync;
 cleanprimoc;
 start;
-brunch primoc 2>&1 | tee cm_primoc.log;
+lunch cm_primoc-userdebug;
+make -j8 bacon 2>&1 | tee cm_primoc.log;
 uploadprimoc;
-end;
-pause;;
-2) echo "************* Building PrimoU *************";
-manifest;
-sync;
-cleanprimou;
-start;
-brunch primou 2>&1 | tee cm_primou.log;
-uploadprimou;
-end;
-pause;;
-3) echo "Bye!"
-exit 1;;
-*) echo "$opt is an invaild option. Please select option between 1-4 only";
-echo "Press [enter] key to continue. . .";
-read enterKey;;
-esac
-done
-while :
-do
-clear
 end;
 done
